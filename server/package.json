@@ -23,9 +23,13 @@
   },
   "homepage": "https://github.com/bkdev98/react-native-graphql-twitter-clone#readme",
   "dependencies": {
+    "apollo-server-express": "^1.0.2",
     "body-parser": "^1.17.2",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
+    "faker": "^4.1.0",
+    "graphql": "^0.10.5",
+    "graphql-tools": "^1.1.0",
     "mongoose": "^4.11.3"
   },
   "devDependencies": {
