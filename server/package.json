@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Twitter clone server 🐠",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkdev98/react-native-graphql-twitter-clone.git"
+  },
+  "keywords": [
+    "twitter",
+    "graphql",
+    "react-native"
+  ],
+  "author": "bkdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bkdev98/react-native-graphql-twitter-clone/issues"
+  },
+  "homepage": "https://github.com/bkdev98/react-native-graphql-twitter-clone#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "nodemon": "^1.11.0"
+  }
+}
