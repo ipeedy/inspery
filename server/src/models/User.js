@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { hashSync } from 'bcrypt-nodejs';
+import { hashSync, compareSync } from 'bcrypt-nodejs';
 
 const UserSchema = new Schema({
   username: {
@@ -31,6 +31,9 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods = {
   _hashPassword(password) {
     return hashSync(password);
+  },
+  authenticateUser(password) {
+    return compareSync(password, this.password);
   }
 }
 
