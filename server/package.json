@@ -24,6 +24,7 @@
   "homepage": "https://github.com/bkdev98/react-native-graphql-twitter-clone#readme",
   "dependencies": {
     "apollo-server-express": "^1.0.2",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.2",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
