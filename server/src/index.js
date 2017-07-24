@@ -19,14 +19,14 @@ mocks().then(() => {
   graphQLServer.listen(constants.PORT, err => {
     if (err) {
       notifier.notify({
-        'title': 'Twitter Clone',
+        'title': 'Inspery API',
         'message': '🦑 Service failed to start!',
       });
       console.error(err);
     } else {
       notifier.notify({
-        'title': 'Twitter Clone',
-        'message': '🐠 Service started!',
+        'title': 'Inspery API',
+        'message': '👨‍❤️‍💋‍👨 Service started!',
       });
       console.log(`App listen to port: ${constants.PORT} 🐠`);
     }
