@@ -26,10 +26,9 @@ const BottonText = styled.Text`
   color: ${props => props.theme.LIGHT_GRAY}
 `;
 
-const favoriteCount = 3;
 const isFavorited = false;
 
-const FeedCardBottom = () => (
+const FeedCardBottom = ({ favoriteCount }) => (
   <Root>
     <Botton>
       <SimpleLineIcons name="bubble" size={18} color={colors.LIGHT_GRAY} />
