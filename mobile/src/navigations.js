@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import ExploreScreen from './screens/ExploreScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import AuthenticationScreen from './screens/AuthenticationScreen';
 import { colors } from './utils/constants';
 
 const Tabs = TabNavigator({
@@ -83,13 +84,17 @@ class AppNavigator extends Component {
     const nav = addNavigationHelpers({
       dispatch: this.props.dispatch,
       state: this.props.nav
-    })
+    });
+    if (!this.props.user.isAuthenticated) {
+      return <AuthenticationScreen />;
+    };
     return <AppMainNav navigation={nav} />
   }
-}
+};
 
 export default connect(state => ({
-  nav: state.nav
+  nav: state.nav,
+  user: state.user,
 }))(AppNavigator);
 
 export const router = AppMainNav.router;
