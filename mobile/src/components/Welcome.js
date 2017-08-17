@@ -21,5 +21,5 @@ export default function Welcome() {
     <Root>
       <Text>Welcome, if you see this that mean everything work!!!</Text>
     </Root>
-  )
+  );
 }

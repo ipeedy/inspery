@@ -13,7 +13,7 @@ const Root = styled.View`
 `;
 
 class HomeScreen extends Component {
-  _renderItem = ({ item }) => <FeedCard {...item} />
+  _renderItem = ({ item }) => <FeedCard {...item} />;
 
   render() {
     const { data } = this.props;
@@ -22,7 +22,7 @@ class HomeScreen extends Component {
         <Root>
           <ActivityIndicator size="large" />
         </Root>
-      )
+      );
     }
     return (
       <Root>

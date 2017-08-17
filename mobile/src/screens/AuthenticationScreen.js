@@ -17,7 +17,7 @@ const ButtonSignupText = styled.Text`
 `;
 
 const ButtonSignup = styled(Touchable).attrs({
-  feedback: 'opacity'
+  feedback: 'opacity',
 })`
   height: 75;
   width: 150;
@@ -48,7 +48,7 @@ const BottomTextContainer = styled.View`
 
 const ButtonLogin = styled(Touchable).attrs({
   feedback: 'opacity',
-  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 }
+  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 },
 })`
   justifyContent: center;
   alignItems: center;
@@ -63,7 +63,7 @@ const ButtonLoginText = styled.Text`
 const initialState = {
   showSignup: false,
   showLogin: false,
-}
+};
 
 class AuthenticationScreen extends Component {
   state = initialState;
@@ -78,7 +78,7 @@ class AuthenticationScreen extends Component {
         <Root>
           <SignupForm onBackPress={this._onBackPress} />
         </Root>
-      )
+      );
     }
     return (
       <Root>
@@ -87,9 +87,7 @@ class AuthenticationScreen extends Component {
         </ButtonSignup>
         <BottomTextContainer>
           <ButtonLogin>
-            <ButtonLoginText>
-              Already have an account?
-            </ButtonLoginText>
+            <ButtonLoginText>Already have an account?</ButtonLoginText>
           </ButtonLogin>
         </BottomTextContainer>
       </Root>

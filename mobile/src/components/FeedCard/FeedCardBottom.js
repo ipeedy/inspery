@@ -11,7 +11,7 @@ const Root = styled.View`
 `;
 
 const Botton = styled(Touchable).attrs({
-  feedback: 'opacity'
+  feedback: 'opacity',
 })`
   flex: 1;
   flexDirection: row;
@@ -23,12 +23,12 @@ const Botton = styled(Touchable).attrs({
 const BottonText = styled.Text`
   fontSize: 14;
   fontWeight: 500;
-  color: ${props => props.theme.LIGHT_GRAY}
+  color: ${props => props.theme.LIGHT_GRAY};
 `;
 
 const isFavorited = false;
 
-const FeedCardBottom = ({ favoriteCount }) => (
+const FeedCardBottom = ({ favoriteCount }) =>
   <Root>
     <Botton>
       <SimpleLineIcons name="bubble" size={18} color={colors.LIGHT_GRAY} />
@@ -52,7 +52,6 @@ const FeedCardBottom = ({ favoriteCount }) => (
         {favoriteCount}
       </BottonText>
     </Botton>
-  </Root>
-);
+  </Root>;
 
 export default FeedCardBottom;

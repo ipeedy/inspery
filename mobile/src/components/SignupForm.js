@@ -24,7 +24,7 @@ const Wrapper = styled(KeyboardAvoidingView)`
 
 const BackButton = styled(Touchable).attrs({
   feedback: 'opacity',
-  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 }
+  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 },
 })`
   justifyContent: center;
   alignItems: center;
@@ -81,7 +81,7 @@ class SignupForm extends Component {
     email: '',
     password: '',
     username: '',
-  }
+  };
 
   _onOutsidePress = () => Keyboard.dismiss();
 
@@ -90,7 +90,7 @@ class SignupForm extends Component {
   _checkIfDisable() {
     const { fullName, email, password, username } = this.state;
 
-    return (!fullName || !email || !password || !username);
+    return !fullName || !email || !password || !username;
   }
 
   render() {
@@ -130,9 +130,7 @@ class SignupForm extends Component {
           </InputWrapper>
         </Wrapper>
         <ButtonConfirm disabled={this._checkIfDisable()}>
-          <ButtonConfirmText>
-            Sign up
-          </ButtonConfirmText>
+          <ButtonConfirmText>Sign up</ButtonConfirmText>
         </ButtonConfirm>
       </Root>
     );

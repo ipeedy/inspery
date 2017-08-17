@@ -57,7 +57,7 @@ const MetaText = styled.Text`
   color: ${props => props.theme.LIGHT_GRAY};
 `;
 
-const FeedCardHeader = ({ username, firstName, lastName, avatar, createdAt }) => (
+const FeedCardHeader = ({ username, firstName, lastName, avatar, createdAt }) =>
   <Root>
     <AvatarContainer>
       <Avatar source={{ uri: avatar || fakeAvatar }} />
@@ -77,7 +77,6 @@ const FeedCardHeader = ({ username, firstName, lastName, avatar, createdAt }) =>
         </MetaText>
       </MetaBottomContainer>
     </MetaContainer>
-  </Root>
-);
+  </Root>;
 
 export default FeedCardHeader;

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
 
-const Root = styled.View`
-
-`;
+const Root = styled.View``;
 
 const T = styled.Text``;
 
 class NotificationsScreen extends Component {
-  state = {  }
+  state = {};
   render() {
     return (
       <Root>
