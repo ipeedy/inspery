@@ -45,13 +45,13 @@ class HeaderAvatar extends Component {
   render() {
     if (!this.props.info) {
       return (
-        <Button disabled>
+        <Button side="left" disabled>
           <Loading size="small" />
         </Button>
       )
     }
     return (
-      <Button onPress={this._onOpenActionSheet}>
+      <Button side="left" onPress={this._onOpenActionSheet}>
         <Avatar source={{ uri: this.props.info.avatar }} />
       </Button>
     );
