@@ -1,5 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
+import { TWEET_FAVORITED } from '../graphql/resolvers/tweet-resolvers';
+import { pubsub } from '../config/pubsub';
+
 import Tweet from './Tweet';
 
 const FavoriteTweetSchema = new Schema({
@@ -23,9 +26,13 @@ FavoriteTweetSchema.methods = {
 
       const tweet = await Tweet.decFavoriteCount(tweetId);
 
+      const t = tweet.toJSON();
+
+      pubsub.publish(TWEET_FAVORITED, { [TWEET_FAVORITED]: { ...t } });
+
       return {
         isFavorited: false,
-        ...tweet.toJSON(),
+        ...t,
       };
     }
 
@@ -34,9 +41,13 @@ FavoriteTweetSchema.methods = {
 
     const tweet = await Tweet.incFavoriteCount(tweetId);
 
+    const t = tweet.toJSON();
+
+    pubsub.publish(TWEET_FAVORITED, { [TWEET_FAVORITED]: { ...t } });
+
     return {
       isFavorited: true,
-      ...tweet.toJSON(),
+      ...t,
     };
   },
 };
