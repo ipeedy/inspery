@@ -73,24 +73,30 @@ const Tabs = TabNavigator(
   },
 );
 
-const NewTweetModal = StackNavigator({
-  NewTweet: {
-    screen: NewTweetScreen,
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: <HeaderAvatar />,
-      headerRight: (
-        <ButtonHeader side="right" onPress={() => {
-          Keyboard.dismiss();
-          navigation.goBack(null);
-        }}>
-          <EvilIcons color={colors.PRIMARY} size={25} name="close" />
-        </ButtonHeader>
-      ),
-    })
-  }
-}, {
-  headerMode: 'none'
-});
+const NewTweetModal = StackNavigator(
+  {
+    NewTweet: {
+      screen: NewTweetScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <HeaderAvatar />,
+        headerRight: (
+          <ButtonHeader
+            side="right"
+            onPress={() => {
+              Keyboard.dismiss();
+              navigation.goBack(null);
+            }}
+          >
+            <EvilIcons color={colors.PRIMARY} size={25} name="close" />
+          </ButtonHeader>
+        ),
+      }),
+    },
+  },
+  {
+    headerMode: 'none',
+  },
+);
 
 const AppMainNav = StackNavigator(
   {
@@ -99,15 +105,18 @@ const AppMainNav = StackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerLeft: <HeaderAvatar />,
         headerRight: (
-          <ButtonHeader side="right" onPress={() => navigation.navigate('NewTweet')}>
+          <ButtonHeader
+            side="right"
+            onPress={() => navigation.navigate('NewTweet')}
+          >
             <SimpleLineIcons color={colors.PRIMARY} size={20} name="pencil" />
           </ButtonHeader>
         ),
-      })
+      }),
     },
     NewTweet: {
-      screen: NewTweetModal
-    }
+      screen: NewTweetModal,
+    },
   },
   {
     cardStyle: {

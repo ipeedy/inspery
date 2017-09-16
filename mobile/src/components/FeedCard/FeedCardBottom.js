@@ -26,9 +26,7 @@ const BottonText = styled.Text`
   color: ${props => props.theme.LIGHT_GRAY};
 `;
 
-const isFavorited = false;
-
-const FeedCardBottom = ({ favoriteCount }) =>
+const FeedCardBottom = ({ favoriteCount, onFavoritePress, isFavorited }) =>
   <Root>
     <Botton>
       <SimpleLineIcons name="bubble" size={18} color={colors.LIGHT_GRAY} />
@@ -42,9 +40,9 @@ const FeedCardBottom = ({ favoriteCount }) =>
         {favoriteCount}
       </BottonText>
     </Botton>
-    <Botton>
+    <Botton onPress={onFavoritePress}>
       <Entypo
-        name={isFavorited ? 'heart' : 'heart-outlined'}
+        name="heart-outlined"
         color={isFavorited ? 'red' : colors.LIGHT_GRAY}
         size={20}
       />

@@ -9,14 +9,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
-      }
+      };
     case 'GET_USER_INFO':
       return {
         ...state,
         info: action.info,
-      }
+      };
     case 'LOGOUT':
-      return initialState
+      return initialState;
     default:
       return state;
   }

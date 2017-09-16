@@ -31,12 +31,12 @@ class HomeScreen extends Component {
         if (!prev.getTweets.find(t => t._id === newTweet._id)) {
           return {
             ...prev,
-            getTweets: [{ ...newTweet }, ...prev.getTweets]
-          }
+            getTweets: [{ ...newTweet }, ...prev.getTweets],
+          };
         }
 
         return prev;
-      }
+      },
     });
   }
 
@@ -47,7 +47,7 @@ class HomeScreen extends Component {
   _getUserInfo = async () => {
     const { data: { me } } = await this.props.client.query({ query: ME_QUERY });
     this.props.getUserInfo(me);
-  }
+  };
 
   _renderItem = ({ item }) => <FeedCard {...item} />;
 
@@ -73,7 +73,8 @@ class HomeScreen extends Component {
   }
 }
 
-export default withApollo(compose(
-  connect(undefined, { getUserInfo }),
-  graphql(GET_TWEETS_QUERY)
-)(HomeScreen));
+export default withApollo(
+  compose(connect(undefined, { getUserInfo }), graphql(GET_TWEETS_QUERY))(
+    HomeScreen,
+  ),
+);

@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Touchable from '@appandflow/touchable';
-import { Platform, Keyboard, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import {
+  Platform,
+  Keyboard,
+  KeyboardAvoidingView,
+  AsyncStorage,
+} from 'react-native';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 
@@ -122,7 +127,7 @@ class SignupForm extends Component {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   render() {
     if (this.state.loading) {
@@ -165,7 +170,10 @@ class SignupForm extends Component {
             />
           </InputWrapper>
         </Wrapper>
-        <ButtonConfirm onPress={this._onSignupPress} disabled={this._checkIfDisable()}>
+        <ButtonConfirm
+          onPress={this._onSignupPress}
+          disabled={this._checkIfDisable()}
+        >
           <ButtonConfirmText>Sign up</ButtonConfirmText>
         </ButtonConfirm>
       </Root>
@@ -173,7 +181,6 @@ class SignupForm extends Component {
   }
 }
 
-export default compose(
-  graphql(SIGNUP_MUTATION),
-  connect(undefined, { login }),
-)(SignupForm);
+export default compose(graphql(SIGNUP_MUTATION), connect(undefined, { login }))(
+  SignupForm,
+);

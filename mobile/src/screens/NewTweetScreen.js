@@ -25,7 +25,7 @@ const Wrapper = styled.View`
 
 const Input = styled.TextInput.attrs({
   multiline: true,
-  placeholder: 'What\'s on your mind?',
+  placeholder: "What's on your mind?",
   maxLength: 140,
   selectionColor: Platform.OS === 'ios' && colors.PRIMARY,
   autoFocus: true,
@@ -67,7 +67,7 @@ const TextLength = styled.Text`
 class NewTweetScreen extends Component {
   state = {
     text: '',
-  }
+  };
 
   _onChangeText = text => this.setState({ text });
 
@@ -76,7 +76,7 @@ class NewTweetScreen extends Component {
 
     await this.props.mutate({
       variables: {
-        text: this.state.text
+        text: this.state.text,
       },
       optimisticResponse: {
         __typename: 'Mutation',
@@ -91,21 +91,24 @@ class NewTweetScreen extends Component {
             username,
             firstName,
             lastName,
-            avatar
-          }
+            avatar,
+          },
         },
       },
       update: (store, { data: { createTweet } }) => {
         const data = store.readQuery({ query: GET_TWEETS_QUERY });
         if (!data.getTweets.find(t => t._id === createTweet._id)) {
-          store.writeQuery({ query: GET_TWEETS_QUERY, data: { getTweets: [{ ...createTweet }, ...data.getTweets] } })
+          store.writeQuery({
+            query: GET_TWEETS_QUERY,
+            data: { getTweets: [{ ...createTweet }, ...data.getTweets] },
+          });
         }
-      }
+      },
     });
 
     Keyboard.dismiss();
     this.props.navigation.goBack(null);
-  }
+  };
 
   get _textLength() {
     return 140 - this.state.text.length;
@@ -120,8 +123,13 @@ class NewTweetScreen extends Component {
       <Root>
         <Wrapper>
           <Input value={this.state.text} onChangeText={this._onChangeText} />
-          <TextLength>{this._textLength}</TextLength>
-          <TweetButton onPress={this._onCreateTweetPress} disabled={this._buttonDisabled}>
+          <TextLength>
+            {this._textLength}
+          </TextLength>
+          <TweetButton
+            onPress={this._onCreateTweetPress}
+            disabled={this._buttonDisabled}
+          >
             <TweetButtonText>Tweet</TweetButtonText>
           </TweetButton>
         </Wrapper>
@@ -132,5 +140,5 @@ class NewTweetScreen extends Component {
 
 export default compose(
   graphql(CREATE_TWEET_MUTATION),
-  connect(state => ({ user: state.user.info }))
+  connect(state => ({ user: state.user.info })),
 )(NewTweetScreen);

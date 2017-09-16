@@ -20,7 +20,7 @@ const Avatar = styled.Image`
 
 const Button = styled(Touchable).attrs({
   feedback: 'opacity',
-  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 }
+  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 },
 })`
   marginLeft: 15;
   justifyContent: center;
@@ -31,16 +31,19 @@ class HeaderAvatar extends Component {
   _onOpenActionSheet = () => {
     const options = ['Logout', 'Cancel'];
     const destructiveButtonIndex = 0;
-    this.props.showActionSheetWithOptions({
-      options,
-      destructiveButtonIndex
-    }, buttonIndex => {
-      if (buttonIndex === 0) {
-        this.props.client.resetStore();
-        return this.props.logout();
-      }
-    });
-  }
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        destructiveButtonIndex,
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          this.props.client.resetStore();
+          return this.props.logout();
+        }
+      },
+    );
+  };
 
   render() {
     if (!this.props.info) {
@@ -48,7 +51,7 @@ class HeaderAvatar extends Component {
         <Button side="left" disabled>
           <Loading size="small" />
         </Button>
-      )
+      );
     }
     return (
       <Button side="left" onPress={this._onOpenActionSheet}>
@@ -58,6 +61,8 @@ class HeaderAvatar extends Component {
   }
 }
 
-export default withApollo(connect(state => ({ info: state.user.info }), { logout })(
-  connectActionSheet(HeaderAvatar)
-));
+export default withApollo(
+  connect(state => ({ info: state.user.info }), { logout })(
+    connectActionSheet(HeaderAvatar),
+  ),
+);

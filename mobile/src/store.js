@@ -6,7 +6,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+import {
+  SubscriptionClient,
+  addGraphQLSubscriptions,
+} from 'subscriptions-transport-ws';
 
 import reducers from './reducers';
 
@@ -16,37 +19,39 @@ const networkInterface = createNetworkInterface({
 
 const wsClient = new SubscriptionClient('ws://localhost:3000/subscriptions', {
   reconnect: true,
-  connectionParams: {}
+  connectionParams: {},
 });
 
-networkInterface.use([{
-  async applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {};
-    }
-    try {
-      const token = await AsyncStorage.getItem('@inspery');
-      if (token != null) {
-        req.options.headers.authorization = `Bearer ${token}` || null;
+networkInterface.use([
+  {
+    async applyMiddleware(req, next) {
+      if (!req.options.headers) {
+        req.options.headers = {};
       }
-    } catch (error) {
-      throw error;
-    }
+      try {
+        const token = await AsyncStorage.getItem('@inspery');
+        if (token != null) {
+          req.options.headers.authorization = `Bearer ${token}` || null;
+        }
+      } catch (error) {
+        throw error;
+      }
 
-    return next();
-  }
-}]);
+      return next();
+    },
+  },
+]);
 
 const networkInterfaceWithSubs = addGraphQLSubscriptions(
   networkInterface,
-  wsClient
-)
+  wsClient,
+);
 
 export const client = new ApolloClient({
   networkInterface: networkInterfaceWithSubs,
 });
 
-const middlewares = [client.middleware(), thunk, createLogger()];
+const middlewares = [client.middleware(), thunk];
 
 export const store = createStore(
   reducers(client),

@@ -2,27 +2,27 @@ import { AsyncStorage } from 'react-native';
 
 export function login() {
   return {
-    type: 'LOGIN'
-  }
+    type: 'LOGIN',
+  };
 }
 
 export function getUserInfo(info) {
   return {
     type: 'GET_USER_INFO',
-    info
-  }
+    info,
+  };
 }
 
 export function logout() {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       await AsyncStorage.removeItem('@inspery');
 
       return dispatch({
         type: 'LOGOUT',
-      })
+      });
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
