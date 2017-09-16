@@ -17,12 +17,34 @@ export default {
   getTweets: async (_, args, { user }) => {
     try {
       await requireAuth(user);
-      return Tweet.find({}).sort({ createdAt: -1 });
+      const p1 = Tweet.find({}).sort({ createdAt: -1 });
+      const p2 = FavoriteTweet.findOne({ userId: user._id });
+      const [tweets, favorites] = await Promise.all([p1, p2]);
+
+      const tweetsToSend = tweets.reduce((arr, tweet) => {
+        const tw = tweet.toJSON();
+
+        if (favorites.tweets.some(t => t.equals(tweet._id))) {
+          arr.push({
+            ...tw,
+            isFavorited: true,
+          });
+        } else {
+          arr.push({
+            ...tw,
+            isFavorited: false,
+          });
+        }
+
+        return arr;
+      }, []);
+
+      return tweetsToSend;
     } catch (error) {
       throw error;
     }
   },
-  getUserTweets: async(_, args, { user }) => {
+  getUserTweets: async (_, args, { user }) => {
     try {
       await requireAuth(user);
       return Tweet.find({ user: user._id }).sort({ createdAt: -1 });
@@ -66,8 +88,8 @@ export default {
       }
       await tweet.remove();
       return {
-        message: 'Delete Success!'
-      }
+        message: 'Delete Success!',
+      };
     } catch (error) {
       throw error;
     }
@@ -83,6 +105,6 @@ export default {
     }
   },
   tweetAdded: {
-    subscribe: () => pubsub.asyncIterator(TWEET_ADDED)
-  }
-}
+    subscribe: () => pubsub.asyncIterator(TWEET_ADDED),
+  },
+};

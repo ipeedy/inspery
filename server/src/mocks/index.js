@@ -22,7 +22,8 @@ export default async () => {
       });
 
       await Array.from({ length: TWEETS_TOTAL }).forEach(
-        async () => await Tweet.create({ text: faker.lorem.sentence(), user: user._id }),
+        async () =>
+          await Tweet.create({ text: faker.lorem.sentence(), user: user._id }),
       );
     });
   } catch (error) {

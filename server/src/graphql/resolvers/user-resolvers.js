@@ -11,7 +11,7 @@ export default {
 
       return {
         token: user.createToken(),
-      }
+      };
     } catch (error) {
       throw error;
     }
@@ -40,4 +40,4 @@ export default {
       throw error;
     }
   },
-}
+};

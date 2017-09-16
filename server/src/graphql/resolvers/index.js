@@ -26,4 +26,4 @@ export default {
   Subscription: {
     tweetAdded: TweetResolvers.tweetAdded,
   },
-}
+};

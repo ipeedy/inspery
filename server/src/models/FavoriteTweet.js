@@ -7,10 +7,12 @@ const FavoriteTweetSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  tweets: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tweet',
-  }],
+  tweets: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Tweet',
+    },
+  ],
 });
 
 FavoriteTweetSchema.methods = {
@@ -24,7 +26,7 @@ FavoriteTweetSchema.methods = {
       return {
         isFavorited: false,
         ...tweet.toJSON(),
-      }
+      };
     }
 
     this.tweets.push(tweetId);
@@ -35,9 +37,9 @@ FavoriteTweetSchema.methods = {
     return {
       isFavorited: true,
       ...tweet.toJSON(),
-    }
-  }
-}
+    };
+  },
+};
 
 FavoriteTweetSchema.index({ userId: 1 }, { unique: true });
 

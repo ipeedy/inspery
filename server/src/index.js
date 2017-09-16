@@ -17,7 +17,7 @@ import resolvers from './graphql/resolvers';
 
 const schema = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers,
 });
 
 const app = express();
@@ -29,39 +29,47 @@ app.use(
   graphiqlExpress({
     endpointURL: constants.GRAPHQL_PATH,
     subscriptionsEndpoint: `ws://localhost:${constants.PORT}${constants.SUBSCRIPTIONS_PATH}`,
-}));
-app.use(constants.GRAPHQL_PATH, graphqlExpress(req => ({
-  schema,
-  context: {
-    user: req.user
-  }
-})));
+  }),
+);
+app.use(
+  constants.GRAPHQL_PATH,
+  graphqlExpress(req => ({
+    schema,
+    context: {
+      user: req.user,
+    },
+  })),
+);
 
 const graphQLServer = createServer(app);
 
 // mocks().then(() => {
-  graphQLServer.listen(constants.PORT, err => {
-    if (err) {
-      notifier.notify({
-        'title': 'Inspery API',
-        'message': '🦑 Service failed to start!',
-      });
-      console.error(err);
-    } else {
-      new SubscriptionServer({ // eslint-disable-line
+graphQLServer.listen(constants.PORT, err => {
+  if (err) {
+    notifier.notify({
+      title: 'Inspery API',
+      message: '🦑 Service failed to start!',
+    });
+    console.error(err);
+  } else {
+    new SubscriptionServer(
+      {
+        // eslint-disable-line
         schema,
         execute,
-        subscribe
-      }, {
+        subscribe,
+      },
+      {
         server: graphQLServer,
         path: constants.SUBSCRIPTIONS_PATH,
-      });
+      },
+    );
 
-      notifier.notify({
-        'title': 'Inspery API',
-        'message': '👨‍❤️‍💋‍👨 Service started!',
-      });
-      console.log(`App listen to port: ${constants.PORT} 🐠`);
-    }
-  });
+    notifier.notify({
+      title: 'Inspery API',
+      message: '👨‍❤️‍💋‍👨 Service started!',
+    });
+    console.log(`App listen to port: ${constants.PORT} 🐠`);
+  }
+});
 // });
