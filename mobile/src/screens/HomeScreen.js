@@ -11,6 +11,7 @@ import { getUserInfo } from '../actions/user';
 import GET_TWEETS_QUERY from '../graphql/queries/getTweets';
 import ME_QUERY from '../graphql/queries/me';
 import TWEET_ADDED_SUBSCRIPTION from '../graphql/subscriptions/tweetAdded';
+import TWEET_FAVORITED_SUBSCRIPTION from '../graphql/subscriptions/tweetFavorited';
 
 const Root = styled.View`
   flex: 1;
@@ -36,6 +37,29 @@ class HomeScreen extends Component {
         }
 
         return prev;
+      },
+    });
+    this.props.data.subscribeToMore({
+      document: TWEET_FAVORITED_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) {
+          return prev;
+        }
+
+        const newTweet = subscriptionData.data.tweetFavorited;
+
+        return {
+          ...prev,
+          getTweets: prev.getTweets.map(
+            tweet =>
+              tweet._id === newTweet._id
+                ? {
+                    ...tweet,
+                    favoriteCount: newTweet.favoriteCount,
+                  }
+                : tweet,
+          ),
+        };
       },
     });
   }
